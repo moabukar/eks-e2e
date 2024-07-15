@@ -44,7 +44,7 @@ helm upgrade cert-manager jetstack/cert-manager \
   --install \
   --namespace cert-manager \
   --create-namespace \
-  --values "cert-manager-values.yml" \
+  --values "k8s/cert-manager-values.yml" \
   --wait
 
 k apply -f issuer.yml
