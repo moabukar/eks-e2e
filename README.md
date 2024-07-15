@@ -1,6 +1,6 @@
 # EKS end-to-end
 
-- EKS with ingress controller, cert-manager, r53 etc. 
+- EKS with ingress controller, cert-manager, externalDNS, r53/azure dns etc. 
 
 ### Pre-req
 
