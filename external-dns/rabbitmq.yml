@@ -1,0 +1,37 @@
+repositories:
+- name: bitnami
+  url: https://charts.bitnami.com/bitnami
+
+
+releases:
+- name: rabbitmq
+  namespace: devops
+  chart: bitnami/rabbitmq
+  version: 8.24.12
+  values:
+  - auth:
+      username: “rabbitmq”
+      password: “rabbitmq”
+      erlangCookie: “ajhdkhhihkds”
+    persistence:
+      enabled: true
+    service:
+      type: NodePort
+    ingress:
+      enabled: true
+      path: /*
+      hostname: rabbitmq.devops.test.com
+      annotations:
+        kubernetes.io/ingress.class: alb
+        external-dns.alpha.kubernetes.io/hostname: rabbitmq.devops.test.com
+        alb.ingress.kubernetes.io/actions.response-404: "{\"Type\":\"fixed-response\",\"FixedResponseConfig\":{\"ContentType\":\"text/plain\",\"StatusCode\":\"404\",\"MessageBody\":\"devops - 404 Page not found\"}} \n"
+        alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+        alb.ingress.kubernetes.io/certificate-arn: “arn:aws:acm:us-west-2:738379792:certificate/97394d-72255-6fd1b-a59e-79b9a80w42451”
+        alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+        alb.ingress.kubernetes.io/load-balancer-attributes: access_logs.s3.enabled=true, access_logs.s3.bucket=devops-elb-logs,access_logs.s3.prefix=devops
+        alb.ingress.kubernetes.io/scheme: internet-facing
+        alb.ingress.kubernetes.io/security-groups: sg-08043e2c21117694234
+        alb.ingress.kubernetes.io/subnets: subnet-b5f64bff,subnet-431e40,subnet-564e90,subnet-58863b8
+        alb.ingress.kubernetes.io/group.name: devops
+  wait: true
+  timeout: 600
