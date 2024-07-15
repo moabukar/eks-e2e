@@ -38,3 +38,4 @@ terraform.rc
 
 .env
 .DS_Store
+.terraform*

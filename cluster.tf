@@ -3,13 +3,13 @@ module "eks" {
   cluster_name    = local.eks_cluster_name
   cluster_version = "1.18"
 
-  vpc_id  = module.vpc.vpc_id
-  subnets = concat(module.vpc.private_subnets, module.vpc.public_subnets)
+  vpc_id     = module.vpc.vpc_id
+  subnet_ids = concat(module.vpc.private_subnets, module.vpc.public_subnets)
 
-  manage_aws_auth = true
+  #   manage_aws_auth = true
   enable_irsa = true
 
-  worker_groups = [
+  eks_managed_node_group_defaults = [
     {
       instance_type        = "t3a.medium"
       asg_max_size         = 2

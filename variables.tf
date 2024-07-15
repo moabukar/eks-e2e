@@ -7,6 +7,6 @@ variable "domain_name" {
 }
 
 variable "region" {
-  type = string
-  default = "eu-west-1"
+  type    = string
+  default = "us-east-1"
 }

@@ -4,8 +4,12 @@ module "cert_manager_irsa" {
   create_role                   = true
   role_name                     = "${var.name}-cert_manager-irsa"
   provider_url                  = replace(module.eks.cluster_oidc_issuer_url, "https://", "")
-  role_policy_arns              = [aws_iam_policy.cert_manager_policy.arn]
+  role_policy_arns              = [aws_iam_policy.cert_manager_policy2.arn]
   oidc_fully_qualified_subjects = ["system:serviceaccount:cert-manager:cert-manager"]
+}
+
+data "aws_iam_policy" "cert_manager_policy2" {
+  arn = "arn:aws:iam::<>:policy/AmazonRoute53FullAccess"
 }
 
 resource "aws_iam_policy" "cert_manager_policy" {
@@ -27,7 +31,7 @@ resource "aws_iam_policy" "cert_manager_policy" {
           "route53:ChangeResourceRecordSets",
           "route53:ListResourceRecordSets"
         ],
-        "Resource" : "arn:aws:route53:::hostedzone/${local.route53_zone_id}"
+        "Resource" : "*"
       },
     ]
   })
