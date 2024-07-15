@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: guest-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: "issuer"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: guest.sandbox.<domain>
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: helm-guestbook
+            port:
+              # name: https
+              number: 80
+  tls:
+  - hosts:
+    - guest.sandbox.<domain>
+    secretName: guest.sandbox.<domain>

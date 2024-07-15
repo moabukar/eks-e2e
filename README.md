@@ -64,3 +64,9 @@ k apply -f issuer.yml
 - `kubectl create namespace argocd`
 - `kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml`
 - `kubectl apply -f argo/argo-ing.yml`
+
+
+- `argocd login <ingress-host>` # Enter admin pass for argo (user is admin)
+- `argocd app create helm-guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path helm-guestbook --dest-server https://kubernetes.default.svc --dest-namespace default`
+- `kubectl apply -f argo/guestbook.yml`
+- access app in ingress host `argocd.sandbox.<domain>`
