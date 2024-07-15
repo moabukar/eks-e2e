@@ -58,3 +58,9 @@ k apply -f issuer.yml
 - After the new DNS entry propagates you should be able to access the domain and see your app with a Let’s Encrypt signed SSL certificate!
 
 `kubectl get certificate -n default`
+
+## ArgoCD with SSL
+
+- `kubectl create namespace argocd`
+- `kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml`
+- `kubectl apply -f argo/argo-ing.yml`
