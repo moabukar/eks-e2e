@@ -1,0 +1,15 @@
+repositories:
+- name: external-dns
+  url: https://kubernetes-sigs.github.io/external-dns/
+
+
+releases:
+- name: external-dns
+  namespace: kube-system
+  chart: external-dns/external-dns
+  version: 1.7.0
+  values:
+  - podAnnotations:
+      iam.amazonaws.com/role: “<IAM role ARN>”
+  wait: true
+  timeout: 120

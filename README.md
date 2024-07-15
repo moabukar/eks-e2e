@@ -81,6 +81,8 @@ k apply -f issuer.yml
     ```
 - Deploy via helm `helm install external-dns . -f values.yaml` (azure example)
 
+- Or helmfile `helmfile -f ext-dns.yaml diff` & `helmfile -f ext-dns.yaml apply`
+
 ## Test deploy an app
 
 - Deploy an apache pod, svc and an ingress. Add ingress class to it and the clusterissuer you created as an annotation to the ingress.
