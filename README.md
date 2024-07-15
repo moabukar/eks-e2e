@@ -51,6 +51,36 @@ k apply -f issuer.yml
 
 ```
 
+## ExternalDNS
+
+- Either Azure or EKS. 
+- If Azure, you need perms on the managed identities
+  - Network contributor
+  - DNS Zone contributor
+- if AWS
+  - Route53 Record Set perms
+    ```json
+    {
+      "Version" : "2012-10-17",
+      "Statement" : [
+        {
+          "Effect" : "Allow",
+          "Action" : "route53:GetChange",
+          "Resource" : "arn:aws:route53:::change/*"
+        },
+        {
+          "Effect" : "Allow",
+          "Action" : [
+            "route53:ChangeResourceRecordSets",
+            "route53:ListResourceRecordSets"
+          ],
+          "Resource" : "*"
+        },
+      ]
+    }
+    ```
+- Deploy via helm `helm install external-dns . -f values.yaml` (azure example)
+
 ## Test deploy an app
 
 - Deploy an apache pod, svc and an ingress. Add ingress class to it and the clusterissuer you created as an annotation to the ingress.

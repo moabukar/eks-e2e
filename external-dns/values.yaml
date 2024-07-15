@@ -1,0 +1,26 @@
+external-dns:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.azure.com/mode
+            operator: In
+            values:
+            - system
+  azure:
+    resourceGroup: external-dns
+    subscriptionId: <>
+    tenantId: <>
+    useManagedIdentityExtension: true
+    userAssignedIdentityID: <>
+  domainFilters:
+  - sandbox.<domain>
+  logLevel: debug
+  provider: azure
+  sources:
+  - ingress
+  tolerations:
+  - key: CriticalAddonsOnly
+    operator: Exists
+  txtOwnerId: sandbox
